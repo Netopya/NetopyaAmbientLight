@@ -1,0 +1,9 @@
+c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\bin\Debug\NetAmbi3.exe.config
+c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\obj\Debug\NetAmbi3.csprojResolveAssemblyReference.cache
+c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\obj\Debug\NetAmbi3.Form1.resources
+c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\obj\Debug\NetAmbi3.Properties.Resources.resources
+c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\obj\Debug\NetAmbi3.csproj.GenerateResource.Cache
+c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\bin\Debug\NetAmbi3.exe
+c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\bin\Debug\NetAmbi3.pdb
+c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\obj\Debug\NetAmbi3.exe
+c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\obj\Debug\NetAmbi3.pdb
