@@ -40,7 +40,6 @@
             this.panel9 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // backgroundWorker1
@@ -127,12 +126,6 @@
             this.textBox1.Size = new System.Drawing.Size(358, 132);
             this.textBox1.TabIndex = 4;
             // 
-            // backgroundWorker2
-            // 
-            this.backgroundWorker2.WorkerReportsProgress = true;
-            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
-            this.backgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker2_ProgressChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,7 +164,6 @@
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.TextBox textBox1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker2;
     }
 }
 

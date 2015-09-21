@@ -15,16 +15,11 @@ namespace NetAmbi3
     public partial class Form1 : Form
     {
         Panel[] panels = new Panel[10];
-
         Rectangle[] samples = new Rectangle[10];
-        Bitmap[] surfaces = new Bitmap[10];
-        Graphics[] graphics = new Graphics[10];
-        Color[] toColors = new Color[10];
-        Color[] currentColors = new Color[10];
-        SerialPort port; // = new SerialPort("COM3", 9600);
 
         Graphics screen;
-
+        Bitmap screenSurface;
+        Rectangle screenSample;
 
         public Form1()
         {
@@ -41,22 +36,8 @@ namespace NetAmbi3
             samples[1] = new Rectangle(0, 637, 120, 300);
             samples[2] = new Rectangle(0, 112, 120, 300);
 
-            surfaces[4] = new Bitmap(300, 120);
-            surfaces[5] = new Bitmap(300, 120);
-            surfaces[6] = new Bitmap(300, 120);
-            surfaces[8] = new Bitmap(120, 300);
-            surfaces[7] = new Bitmap(120, 300);
-            surfaces[9] = new Bitmap(300, 120);
-            surfaces[3] = new Bitmap(300, 120);
-            surfaces[0] = new Bitmap(300, 120);
-            surfaces[1] = new Bitmap(120, 300);
-            surfaces[2] = new Bitmap(120, 300);
-
-            for (int i = 0; i < currentColors.Length; i++)
-            {
-                currentColors[i] = Color.Black;
-                toColors[i] = Color.Black;
-            }
+            screenSurface = new Bitmap(1680, 1050);
+            screenSample = new Rectangle(0, 0, 1680, 1050);
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -73,22 +54,23 @@ namespace NetAmbi3
             int b = 0;
             int n = 0;
 
+            SerialPort port = new SerialPort("COM3", 9600);
+
             while (true)
             {
+                screen.CopyFromScreen(screenSample.X, screenSample.Y, 0, 0, screenSample.Size);
                 for (int i = 0; i < samples.Length; i++)
                 {
-                    graphics[i].CopyFromScreen(samples[i].X, samples[i].Y, 0, 0, samples[i].Size);
-
                     r = 0;
                     g = 0;
                     b = 0;
                     n = 0;
 
-                    for (int x = 0; x < samples[i].Width; x += 2)
+                    for (int x = samples[i].X; x < samples[i].X + samples[i].Width; x += 2)
                     {
-                        for (int y = 0; y < samples[i].Height; y += 2)
+                        for (int y = samples[i].Y; y < samples[i].Y + samples[i].Height; y += 2)
                         {
-                            Color pixel = surfaces[i].GetPixel(x, y);
+                            Color pixel = screenSurface.GetPixel(x, y);
                             r += pixel.R;
                             g += pixel.G;
                             b += pixel.B;
@@ -99,20 +81,10 @@ namespace NetAmbi3
                     r /= n;
                     g /= n;
                     b /= n;
-                    /*
-                    currentColors[i] = Color.FromArgb(
-                        incrementToVal(currentColors[i].R, (byte)r, 10),
-                        incrementToVal(currentColors[i].G, (byte)g, 10),
-                        incrementToVal(currentColors[i].B, (byte)b, 10)
-                    );*/
 
                     colors[i] = Color.FromArgb(r, g, b);
                 }
 
-                //backgroundWorker1.ReportProgress(0, colors);
-
-
-                // here
                 panels[0].BackColor = colors[0];
 
 
@@ -121,25 +93,18 @@ namespace NetAmbi3
                 for (int i = 0; i < panels.Length; i++)
                 {
                     panels[i].BackColor = colors[i];
-                    buffer[i * 3] = colors[i].R;// myLerp(0, 200,colors[i].R, 255);
+                    buffer[i * 3] = colors[i].R;
                     buffer[i * 3 + 1] = colors[i].G;
                     buffer[i * 3 + 2] = colors[i].B;
                 }
-                /*
-                buffer = buffer.Select(t => (byte)0).ToArray();
 
-                buffer[0] = 255;// colors[0].R;
-                buffer[1] = 0; // colors[0].G;
-                buffer[2] = 0;// colors[0].B;
-                */
-                //textBox1.Text = String.Join(",", buffer);
+                backgroundWorker1.ReportProgress(0, buffer);
 
-                SerialPort porta = new SerialPort("COM3", 9600);
-                porta.Open();
-                porta.Write(buffer, 0, buffer.Length);
-                porta.Close();
+                port.Open();
+                port.Write(buffer, 0, buffer.Length);
+                port.Close();
 
-                Thread.Sleep(100);
+                Thread.Sleep(1000);
             }
         }
 
@@ -156,105 +121,15 @@ namespace NetAmbi3
             panels[1] = panel9;
             panels[2] = panel10;
 
-            for (int i = 0; i < graphics.Length; i++)
-            {
-                graphics[i] = Graphics.FromImage(surfaces[i]);
-            }
+            screen = Graphics.FromImage(screenSurface);
 
             backgroundWorker1.RunWorkerAsync();
-            //backgroundWorker2.RunWorkerAsync();
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //toColors = (Color[])e.UserState;
-
-            //return;
-            Color[] colors = (Color[])e.UserState;
-            
-            panels[0].BackColor = colors[0];
-
-
-            byte[] buffer = new byte[30];
-
-            for (int i = 0; i < panels.Length; i++)
-            {
-                panels[i].BackColor = colors[i];
-                buffer[i * 3] = colors[i].R;// myLerp(0, 200,colors[i].R, 255);
-                buffer[i * 3 + 1] = colors[i].G;
-                buffer[i * 3 + 2] = colors[i].B;
-            }
-            /*
-            buffer = buffer.Select(t => (byte)0).ToArray();
-
-            buffer[0] = 255;// colors[0].R;
-            buffer[1] = 0; // colors[0].G;
-            buffer[2] = 0;// colors[0].B;
-            */
+            byte[] buffer = (byte[])e.UserState;
             textBox1.Text = String.Join(",",buffer);
-            
-            port.Open();
-            port.Write(buffer, 0, buffer.Length);
-            port.Close();
-        }
-
-        private byte myLerp(float min, float max, float amount, float oldMax)
-        {
-            return (byte)(min + (max - min) * (amount / oldMax));
-        }
-
-        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
-        {
-            byte[] buffer = new byte[30];
-
-            while (true)
-            {
-                for (int i = 0; i < currentColors.Length; i++)
-                {
-                    currentColors[i] = Color.FromArgb(
-                        incrementToVal(currentColors[i].R, toColors[i].R, 10),
-                        incrementToVal(currentColors[i].G, toColors[i].G, 10),
-                        incrementToVal(currentColors[i].B, toColors[i].B, 10)
-                    );
-
-                }
-
-                for (int i = 0; i < panels.Length; i++)
-                {
-                    //panels[i].BackColor = colors[i];
-                    buffer[i * 3] = currentColors[i].R;// myLerp(0, 200,colors[i].R, 255);
-                    buffer[i * 3 + 1] = currentColors[i].G;
-                    buffer[i * 3 + 2] = currentColors[i].B;
-                }
-
-                port.Open();
-                port.Write(buffer, 0, buffer.Length);
-                port.Close();
-
-                backgroundWorker2.ReportProgress(0);
-
-                Thread.Sleep(5);
-            }
-        }
-
-        private byte incrementToVal(byte currentVal, byte toVal, byte ratio)
-        {
-            //return (byte)(Math.Ceiling((double)(Math.Abs((currentVal - toVal) / ratio))) * Math.Sign(currentVal - toVal) + currentVal);
-            if (Math.Abs(toVal - currentVal) <= ratio)
-            {
-                return toVal;
-            }
-            return (byte)(currentVal + Math.Sign(toVal - currentVal)*ratio);
-        }
-
-        private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            //Color[] colors = (Color[])e.UserState;
-
-            for (int i = 0; i < panels.Length; i++)
-            {
-                panels[i].BackColor = currentColors[i];
-            }
-        }
+        }  
     }
 }

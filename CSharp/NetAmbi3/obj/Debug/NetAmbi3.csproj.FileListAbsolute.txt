@@ -7,3 +7,12 @@ c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\bin\Deb
 c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\bin\Debug\NetAmbi3.pdb
 c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\obj\Debug\NetAmbi3.exe
 c:\users\michael\documents\visual studio 2013\Projects\NetAmbi3\NetAmbi3\obj\Debug\NetAmbi3.pdb
+C:\Users\Michael\Documents\GitHub\NetopyaAmbientLight\CSharp\NetAmbi3\bin\Debug\NetAmbi3.exe.config
+C:\Users\Michael\Documents\GitHub\NetopyaAmbientLight\CSharp\NetAmbi3\obj\Debug\NetAmbi3.exe
+C:\Users\Michael\Documents\GitHub\NetopyaAmbientLight\CSharp\NetAmbi3\obj\Debug\NetAmbi3.pdb
+C:\Users\Michael\Documents\GitHub\NetopyaAmbientLight\CSharp\NetAmbi3\bin\Debug\NetAmbi3.exe
+C:\Users\Michael\Documents\GitHub\NetopyaAmbientLight\CSharp\NetAmbi3\bin\Debug\NetAmbi3.pdb
+C:\Users\Michael\Documents\GitHub\NetopyaAmbientLight\CSharp\NetAmbi3\obj\Debug\NetAmbi3.csprojResolveAssemblyReference.cache
+C:\Users\Michael\Documents\GitHub\NetopyaAmbientLight\CSharp\NetAmbi3\obj\Debug\NetAmbi3.Form1.resources
+C:\Users\Michael\Documents\GitHub\NetopyaAmbientLight\CSharp\NetAmbi3\obj\Debug\NetAmbi3.Properties.Resources.resources
+C:\Users\Michael\Documents\GitHub\NetopyaAmbientLight\CSharp\NetAmbi3\obj\Debug\NetAmbi3.csproj.GenerateResource.Cache
