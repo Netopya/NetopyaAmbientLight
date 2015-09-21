@@ -68,8 +68,10 @@ namespace NetAmbi3
             panels[1] = panel9;
             panels[2] = panel10;
 
+            // Setup the bitmap to draw to
             screen = Graphics.FromImage(screenSurface);
 
+            // Start sampling in a seperate thread to keep the program responsive
             backgroundWorker1.RunWorkerAsync();
         }
 
