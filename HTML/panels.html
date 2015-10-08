@@ -15,7 +15,9 @@ Your browser does not support the HTML5 canvas tag.
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 ctx.fillStyle = "#FF0000";
-ctx.font = "30px Arial";
+ctx.font = "120px Arial";
+ctx.textAlign="center"; 
+ctx.textBaseline = 'middle';
 
 ctx.fillRect(130, 100, 300, 120);
 ctx.fillRect(690, 100, 300, 120);
